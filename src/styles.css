@@ -1,0 +1,368 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — Hassan Imran portfolio.
+ * Palette: #0B0B0B bg, #171717 surface, #FFFFFF text, #9A9A9A muted,
+ * #146B67 deep sea-green accent (used sparingly).
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 20px);
+  --radius-4xl: calc(var(--radius) + 28px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-nav: "Sora", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 1px rgb(0 0 0 / 0.4), 0 24px 60px -24px rgb(0 0 0 / 0.85);
+  --shadow-lift:
+    0 1px 1px rgb(0 0 0 / 0.4), 0 40px 90px -30px rgb(0 0 0 / 0.95),
+    0 0 0 1px color-mix(in oklab, var(--accent) 34%, transparent);
+  --shadow-glow: 0 0 40px -8px color-mix(in oklab, var(--accent) 45%, transparent);
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(1 0 0);
+  --surface: oklch(0.205 0 0);
+  --surface-raised: oklch(0.242 0 0);
+
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(1 0 0);
+
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.242 0 0);
+  --secondary-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.205 0 0);
+  --muted-foreground: oklch(0.678 0 0);
+
+  --accent: oklch(0.452 0.061 188);
+  --accent-foreground: oklch(1 0 0);
+  --accent-soft: oklch(0.62 0.072 187);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(1 0 0 / 8%);
+  --border-strong: oklch(1 0 0 / 16%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.452 0.061 188);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 55%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-soft);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  section[id] {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* ── Typography helpers ─────────────────────────────────────── */
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility text-eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+/* ── Texture ────────────────────────────────────────────────── */
+
+@utility grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@utility hairline-top {
+  border-top: 1px solid var(--border);
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────── */
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.9s var(--ease-premium),
+    transform 0.9s var(--ease-premium);
+  will-change: opacity, transform;
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Entrance animations ────────────────────────────────────── */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes soft-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility animate-rise {
+  animation: rise-in 1.5s var(--ease-premium) both;
+}
+
+@keyframes scale-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-scale-rise {
+  animation: scale-rise 1.8s var(--ease-premium) both;
+}
+
+@keyframes playhead-drift {
+  from {
+    transform: translateX(-14%);
+  }
+  to {
+    transform: translateX(22%);
+  }
+}
+
+@utility animate-playhead {
+  animation: playhead-drift 9s ease-in-out infinite alternate;
+}
+
+@utility animate-soft-fade {
+  animation: soft-fade 1.4s var(--ease-premium) both;
+}
+
+
+@utility animate-ambient-in {
+  animation: soft-fade 3s var(--ease-premium) 1.6s both;
+}
+
+/* Slow, barely-there drift for the ambient accent washes. */
+@utility animate-veil {
+  animation:
+    soft-fade 2.4s var(--ease-premium) both,
+    veil-float 18s ease-in-out infinite alternate;
+}
+
+@keyframes veil-float {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(0, -2rem, 0) scale(1.08);
+  }
+}
+
+/* Holds entrance animations at frame 0 while the intro curtain is up. */
+@utility intro-hold {
+  & *,
+  & {
+    animation-play-state: paused !important;
+  }
+}
+
+/* ── Refined navigation type ────────────────────────────────── */
+
+@utility font-nav {
+  font-family: var(--font-nav);
+}
+
+/* ── iOS-inspired glass surfaces (used sparingly) ───────────── */
+
+@utility glass-surface {
+  background: color-mix(in oklab, oklch(0.145 0 0) 55%, transparent);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid oklch(1 0 0 / 0.14);
+  box-shadow:
+    0 8px 30px -12px rgb(0 0 0 / 0.7),
+    inset 0 1px 0 oklch(1 0 0 / 0.08);
+}
+
+/* ── Hero showcase motion ───────────────────────────────────── */
+
+@keyframes showcase-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-showcase-in {
+  animation: showcase-in 1.6s var(--ease-premium) both;
+}
+
+@keyframes float-soft {
+  from {
+    translate: 0 -0.5rem;
+  }
+  to {
+    translate: 0 0.5rem;
+  }
+}
+
+@utility animate-float {
+  animation: float-soft 9s ease-in-out infinite alternate;
+}
+
+@keyframes streak-drift {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(85%);
+    opacity: 0;
+  }
+}
+
+@utility animate-streak {
+  animation: streak-drift 18s linear infinite;
+}
+
+@keyframes draw-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Barely-perceptible cinematic push-in on the hero backdrop. */
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1.16);
+  }
+}
+
+@utility animate-slow-zoom {
+  animation:
+    soft-fade 2.2s var(--ease-premium) both,
+    slow-zoom 46s ease-in-out infinite alternate;
+}
+
